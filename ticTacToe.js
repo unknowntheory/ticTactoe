@@ -29,18 +29,16 @@ prompt('player1 name: ')
 //lets play
 function letsPlay(currentBoard){
 
-    let round = 0
-    if(round !== 0){
-      console.log(`round ${round} fight ;)` )
-    }
 
     displayBoard(currentBoard)
+    checkDiagPlayer2(currentBoard)
     prompt('player 1 choose where to go: ')
     .then((results)=>{
       let arr = results.split(',');
       let x = +arr[0]
       let y = +arr[1]
       player1Move(x,y)
+      checkDiagPlayer1(Board)
       return prompt('player2 choose where you go: ')
     })
     .then((results)=>{
@@ -55,9 +53,41 @@ function letsPlay(currentBoard){
 }
 
 // letsPlay()
+function checkDiagPlayer1(arr){
+  let step = 0;
+  for(let i = 0; i < 3; i++){
+    if(arr[step][i] === 1){
+      step++
+    }
+  }
+  if(step === 3){
+    console.log('winner winner chicken dinner player 1 wins');
+     return;
+  }
+}
+//player 2 win win
+function checkDiagPlayer2(arr){
+  let step = 0;
+  for(let i = 0; i < 3; i++){
+    if(arr[step][i] === 0){
+      step++
+    }
+  }
+  if(step === 3){
+    console.log('winner winner chicken dinner player 2 wins');
+     return;
+  }
+}
+// check across
+function row(arr){
+  //loop down each row
+  // check if 
+}
 
 
 
+
+//check below
 //function handle player1 move
 function player1Move(x,y){
   Board[x][y] = 1
@@ -68,7 +98,7 @@ function player1Move(x,y){
 //function handle plaer2 move
 
 function player2Move(x,y){
-  Board[x][y] = 1
+  Board[x][y] = 0
   displayBoard(Board)
 }
 
