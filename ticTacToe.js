@@ -32,15 +32,17 @@ prompt('player1: ')
 .then((cords)=>{
   let getPlayerName = Object.keys(players)[0]
   players[getPlayerName].push(cords)
+  setCord(cords,'x')
+  console.log(Board,'board')
 })
 
-function setCord(str){
+function setCord(str,xo){
 // split on the comma
 //have cords be [e][x]
 //set Board cords to [x]
 let arr = str.split('')
 let cords = [arr[0],arr[1]]
-
+Board[cords] = xo
 }
 
 
