@@ -11,39 +11,78 @@ __|__|__
 [20,21,22]
 x and y cord
 */
-let players = {}
-let Board =    [['__|','__','|__'],['__|','__','|__'],['  |','  ','|  ']]
-prompt('player1: ')
-.then((name1)=>{
-  players[name1] = []
-  console.log(`${name1} saved`);
-  return prompt('player2: ')
+let Board = []
+let players = {};
+prompt('player1 name: ')
+.then((value)=>{
+  players[value] = [];
+  return prompt('player2 name: ')
 })
-.then((name2)=>{
-  players[name2] = []
-  console.log(`${name2} saved`);
-  return Board
-})
-.then((board)=>{
-  console.log('lets play tic tac toe');
-  console.log(board.join('\n'));
-  return prompt(' player one choose your cordinates ex: 1,1: ')
-})
-.then((cords)=>{
-  let getPlayerName = Object.keys(players)[0]
-  players[getPlayerName].push(cords)
-  setCord(cords,'x')
-  console.log(Board,'board')
+.then((value)=>{
+  players[value] = []
+  console.log(players)
+  createBoard()
+
+  letsPlay(Board)
 })
 
-function setCord(str,xo){
-// split on the comma
-//have cords be [e][x]
-//set Board cords to [x]
-let arr = str.split('')
-let cords = [arr[0],arr[1]]
-Board[cords] = xo
+//lets play
+function letsPlay(currentBoard){
+
+    let round = 0
+    if(round !== 0){
+      console.log(`round ${round} fight ;)` )
+    }
+
+    displayBoard(currentBoard)
+    prompt('player 1 choose where to go: ')
+    .then((results)=>{
+      let arr = results.split(',');
+      let x = +arr[0]
+      let y = +arr[1]
+      player1Move(x,y)
+      return prompt('player2 choose where you go: ')
+    })
+    .then((results)=>{
+      let arr = results.split(',');
+      let x = +arr[0]
+      let y = +arr[1]
+      player2Move(x,y)
+      console.log('-----------------------')
+      letsPlay(Board)
+    })
+
 }
 
+// letsPlay()
+
+
+
+//function handle player1 move
+function player1Move(x,y){
+  Board[x][y] = 1
+  displayBoard(Board)
+
+}
+
+//function handle plaer2 move
+
+function player2Move(x,y){
+  Board[x][y] = 1
+  displayBoard(Board)
+}
+
+//function create Board
+function createBoard(){
+  for( let i = 0; i < 3; i++) {
+    Board.push([3,3,3])
+  }
+}
+//create board
+function displayBoard(board){
+  console.log(Board.join('\n'))
+  return Board.join('\n')
+}
+// createBoard()
 
 // console.log(Board.join('\n'),'board')
